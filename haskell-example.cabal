@@ -1,0 +1,43 @@
+name:                haskell-example
+version:             0.1.0.0
+synopsis:            A simple example for a haskell project
+description:         This package contains a simple example of a haskell project
+license:             Apache-2.0
+license-file:        LICENSE
+author:              Darrell Lewis-Sandy
+maintainer:          dlewissandy@gmail.com
+build-type:          Simple
+extra-source-files:  ChangeLog.md, README.md, Dockerfile
+cabal-version:       >=1.10
+
+
+library
+  -- Add the names of any modules that you want to expose from your library here, separated by commas.
+  exposed-modules:     Example.Sort
+  -- add your package dependencies here, separated by commas.  
+  -- Because you are building using stack, you don't need to worry about versions
+  build-depends:       base
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+  -- Add any language extensions that you want to use here, rather than adding them to each file
+  default-extensions:  RecordWildCards, GADTs 
+  -- turn all compiler warnings on, and throw an error if any occur
+  ghc-options: -Wall -Werror
+
+-- your package can build multiple executables.  
+executable example
+  main-is: Main.hs
+  hs-source-dirs: exec
+  build-depends: base, haskell-example
+  default-language:    Haskell2010
+  default-extensions:  RecordWildCards, GADTs 
+  
+-- Unit tests are run to protect the master branch from broken code.  Ideally they test
+-- that each exported function in your library satisfies its specification.
+test-suite unit-tests
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  build-depends: base, haskell-example, QuickCheck
+  hs-source-dirs: test
+  default-language:    Haskell2010
+  default-extensions:  RecordWildCards, GADTs 
